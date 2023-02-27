@@ -1,0 +1,36 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var openAiModel = (OpenAiResponse)ViewData["openAiResponseModel"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h2>Microsoft OpenAI gpt model test</h2>
+</div>
+
+<form method="post">
+
+    <label for="prompt">prompt:</label><br>
+    <input type="text" id="prompt" name="prompt"><br>
+
+    <label for="model">model:</label><br>
+    <input list="models" id="model" name="model" placeholder="text-davinci-003"><br>
+        <datalist id="models">
+            <option value="text-davinci-003"></option>
+            <option value="text-curie-001"></option>
+            <option value="text-babbage-001"></option>
+            <option value="text-ada-001"></option>
+        </datalist>
+    
+    
+    <button type="submit">Submit Form</button>
+</form>
+@if (openAiModel != null) {
+    <textarea name="response" id="response" cols="200" rows="20">
+        @openAiModel.choices.text
+    </textarea>
+} else {
+    <textarea>Please wait for OpenAI...</textarea>
+}
